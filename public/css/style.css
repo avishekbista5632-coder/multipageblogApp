@@ -1,0 +1,368 @@
+/* ========================
+   Global Reset & Base
+======================== */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Inter', 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #f5f7ff, #eef1ff);
+    color: #1a1a1a;
+}
+
+/* ========================
+   Navbar
+======================== */
+.navbar {
+    background: rgba(15, 15, 25, 0.85);
+    backdrop-filter: blur(12px);
+    padding: 18px 40px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.navbar a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    position: relative;
+}
+
+.navbar a::after {
+    content: '';
+    position: absolute;
+    bottom: -6px;
+    left: 0;
+    width: 0%;
+    height: 2px;
+    background: #6c63ff;
+    transition: width 0.3s ease;
+}
+
+.navbar a:hover::after {
+    width: 100%;
+}
+
+/* ========================
+   Layout
+======================== */
+.container {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 24px;
+}
+
+.page-title {
+    font-size: 36px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.page-subtitle {
+    color: #666;
+    margin-bottom: 40px;
+    max-width: 600px;
+}
+
+/* ========================
+   Posts Grid
+======================== */
+.posts-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+/* ========================
+   Post Card
+======================== */
+.post-card {
+    background: rgba(255, 255, 255, 0.85);
+    border-radius: 18px;
+    padding: 24px;
+    position: relative;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.08);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    overflow: hidden;
+}
+
+.post-card::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg, transparent, rgba(108,99,255,0.12), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    pointer-events: none; /* allow clicks to pass through */
+    z-index: 0;
+}
+
+.post-card:hover::before {
+    opacity: 1;
+}
+
+.post-card:hover {
+    transform: translateY(-8px) scale(1.01);
+    box-shadow: 0 22px 45px rgba(0,0,0,0.15);
+}
+
+/* ========================
+   Post Link (clickable card)
+======================== */
+.post-link {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: inherit;
+    text-decoration: none;
+    position: relative;
+    z-index: 1; /* above hover overlay */
+}
+
+.post-link:hover h2,
+.post-link:hover .read-more {
+    color: #6c63ff;
+}
+
+/* ========================
+   Post Title
+======================== */
+.post-card h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+/* ========================
+   Preview Text
+======================== */
+.post-preview {
+    color: #555;
+    line-height: 1.7;
+    margin: 16px 0 22px;
+}
+
+/* ========================
+   Read More
+======================== */
+.read-more {
+    font-size: 14px;
+    color: #6c63ff;
+    font-weight: 600;
+}
+
+/* ========================
+   Hover Actions (Edit/Delete)
+======================== */
+.post-actions {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    display: flex;
+    gap: 10px;
+    opacity: 0;
+    transform: translateY(-6px);
+    transition: all 0.25s ease;
+}
+
+.post-card:hover .post-actions {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.post-actions a,
+.post-actions button {
+    border: none;
+    border-radius: 10px;
+    padding: 7px 9px;
+    font-size: 14px;
+    cursor: pointer;
+    background: rgba(255,255,255,0.9);
+    box-shadow: 0 6px 15px rgba(0,0,0,0.12);
+}
+
+.post-actions .edit {
+    color: #4f46e5;
+}
+
+.post-actions .delete {
+    color: #dc2626;
+}
+
+.post-actions button {
+    background: rgba(255, 230, 230, 0.9);
+}
+
+/* ========================
+   Forms
+======================== */
+form {
+    max-width: 600px;
+}
+
+input, textarea {
+    width: 100%;
+    padding: 14px 16px;
+    margin-bottom: 18px;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+}
+
+input:focus,
+textarea:focus {
+    outline: none;
+    border-color: #6c63ff;
+    box-shadow: 0 0 0 3px rgba(108,99,255,0.15);
+}
+
+textarea {
+    min-height: 200px;
+    resize: vertical;
+}
+
+/* ========================
+   Buttons
+======================== */
+button {
+    background: linear-gradient(135deg, #6c63ff, #5548e5);
+    color: white;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(108,99,255,0.35);
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 35px rgba(108,99,255,0.45);
+}
+
+/* ========================
+   Single Post Page
+======================== */
+.single-post {
+    background: rgba(255,255,255,0.9);
+    border-radius: 20px;
+    padding: 40px;
+    box-shadow: 0 18px 45px rgba(0,0,0,0.1);
+}
+
+.single-post h1 {
+    margin-top: 0;
+}
+
+.single-post p {
+    line-height: 1.8;
+    color: #444;
+    font-size: 17px;
+}
+
+/* ========================
+   Alerts
+======================== */
+.alert-success {
+    background: #d4edda;
+    color: #155724;
+    padding: 14px 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+    animation: fadeout 0.5s ease forwards;
+}
+
+.alert-error {
+    background: #ffe0e0;
+    color: #b72121;
+    padding: 12px 18px;
+    border-radius: 10px;
+    margin-bottom: 18px;
+}
+
+@keyframes fadeout {
+    0% { opacity: 1; }
+    90% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+/* ========================
+   Cancel Button
+======================== */
+.cancel-btn {
+    display: inline-block;
+    background: #ddd;
+    color: #333;
+    padding: 10px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: background 0.2s;
+}
+
+.cancel-btn:hover {
+    background: #ccc;
+}
+.post-actions.always-visible {
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+    position: static; /* or relative if you like */
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+}
+/* Footer layout for single post page */
+.post-footer {
+    display: flex;
+    justify-content: space-between; /* back on left, actions on right */
+    align-items: center;
+    margin-top: 30px;
+}
+
+/* Back button styling */
+.back-btn {
+    background: #ddd;
+    color: #333;
+    padding: 10px 18px;
+    border-radius: 12px;
+    text-decoration: none;
+    transition: background 0.2s;
+}
+
+.back-btn:hover {
+    background: #ccc;
+}
+
+/* Ensure edit/delete buttons display inline */
+.post-actions.always-visible {
+    display: flex;
+    gap: 10px;
+    opacity: 1 !important;
+    transform: translateY(0) !important;
+}
+.btn-primary {
+    display: inline-block;
+    background: linear-gradient(135deg, #6c63ff, #5548e5);
+    color: white;
+    padding: 12px 22px;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 500;
+    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 10px 25px rgba(108,99,255,0.35);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 14px 35px rgba(108,99,255,0.45);
+}
